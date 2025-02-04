@@ -1,4 +1,4 @@
-package 정렬.구간합;
+package 자료구조.구간합;
 
 import java.io.BufferedReader;
 import java.io.IOException;

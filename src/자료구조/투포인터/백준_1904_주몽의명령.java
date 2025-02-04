@@ -1,4 +1,4 @@
-package 정렬.투포인터;
+package 자료구조.투포인터;
 
 import java.io.BufferedReader;
 import java.io.IOException;

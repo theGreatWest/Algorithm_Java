@@ -1,4 +1,4 @@
-package 정렬.슬라이딩_윈도우;
+package 자료구조.슬라이딩_윈도우;
 
 import java.io.BufferedReader;
 import java.io.IOException;
