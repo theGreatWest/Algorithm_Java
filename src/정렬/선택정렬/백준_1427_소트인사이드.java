@@ -12,6 +12,7 @@ public class 백준_1427_소트인사이드 {
         String nStr = br.readLine();
         int len = nStr.length();
         arr = new int[len];
+        // for문 : str.substring(i, i+1)을 Integer.parseInt()로 감싸 정수형으로 변환해 주기
         int k = 0;
         for(String s : nStr.split("")){
             arr[k++] = Integer.parseInt(s);
