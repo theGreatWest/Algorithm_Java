@@ -36,11 +36,11 @@ public class 백준_2751_수정렬하기2 {
         }
 
         // process
-        mergeSort(0, n-1);
+        mergeSort(0, n - 1);
 
         // output
         StringBuilder res = new StringBuilder();
-        for(int i=0;i<n;i++){
+        for (int i = 0; i < n; i++) {
             res.append(arr[i]).append("\n");
         }
         System.out.println(res);
@@ -61,11 +61,14 @@ public class 백준_2751_수정렬하기2 {
         int k = startIdx;
         int idx1 = startIdx;
         int idx2 = mid + 1;
+
         while (idx1 <= mid && idx2 <= endIdx) {
             if (tmpArr[idx1] > tmpArr[idx2]) arr[k++] = tmpArr[idx2++];
             else arr[k++] = tmpArr[idx1++];
         }
+
         while (idx1 <= mid) arr[k++] = tmpArr[idx1++];
-        while(idx2<=endIdx) arr[k++] = tmpArr[idx2++];
+
+        while (idx2 <= endIdx) arr[k++] = tmpArr[idx2++];
     }
 }
