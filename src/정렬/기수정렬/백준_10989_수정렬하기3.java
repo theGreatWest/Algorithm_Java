@@ -1,9 +1,6 @@
 package 정렬.기수정렬;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.PriorityQueue;
 
 public class 백준_10989_수정렬하기3 {
     static int[] arr;
@@ -46,7 +43,7 @@ public class 백준_10989_수정렬하기3 {
 
             for (int j = 1; j < 10; j++) {
                 numbers[j] += numbers[j - 1]; // 합 배열(누적합) 이용해 index 계산
-             }
+            }
 
             // 현재 자릿수 기준으로 정렬
             for (int j = arr.length - 1; j >= 0; j--) {
@@ -60,5 +57,4 @@ public class 백준_10989_수정렬하기3 {
             pointer *= 10; // 자릿수 증가 시키기
         }
     }
-
 }
