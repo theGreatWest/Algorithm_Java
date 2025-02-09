@@ -1,9 +1,8 @@
 package 정렬.병합정렬;
 
-import java.util.*;
 import java.io.*;
 
-public class 백준_2751_수정렬하기2_연습 {
+public class 백준_2751_수정렬하기2_연습1 {
     static int[] arr, tmpArr;
 
     public static void main(String[] args) throws IOException {
@@ -36,6 +35,7 @@ public class 백준_2751_수정렬하기2_연습 {
         int m = S + ((E - S) / 2);
 
         // 재귀함수로 미리 호출
+        // 배열 요소가 1개가 될 때까지 분할하여 sort
         mergeSort(S, m);
         mergeSort(m + 1, E);
 
