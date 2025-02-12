@@ -16,7 +16,7 @@ public class 백준_2343_기타레슨 {
         int s = arr[0];
         for (int i = 1; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
-            if(arr[i] > s) s = arr[i];
+            if(arr[i] > s) s = arr[i]; // 가장 긴 영상을 쪼개어 넣으면 안 되기 때문에 가장 작은 값을 요소의 가장 큰 값으로 넣어야 한다.
             e += arr[i];
         }
 
