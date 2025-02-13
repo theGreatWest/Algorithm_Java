@@ -1,4 +1,4 @@
-package 매일.Date_25_02_06;
+package DailyCheckUp.Date_25_02_06;
 
 import java.io.*;
 import java.util.*;

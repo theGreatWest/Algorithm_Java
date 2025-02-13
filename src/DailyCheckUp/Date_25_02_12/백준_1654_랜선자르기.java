@@ -1,4 +1,4 @@
-package 매일.Date_25_02_12;
+package DailyCheckUp.Date_25_02_12;
 
 import java.io.BufferedReader;
 import java.io.IOException;
