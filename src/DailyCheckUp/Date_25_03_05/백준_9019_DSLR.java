@@ -4,6 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class 백준_9019_DSLR {
+/*
     static final int MAX = 10000;
 
     public static void main(String[] args) throws IOException {
@@ -61,12 +62,15 @@ public class 백준_9019_DSLR {
             System.out.println(command[b]);
         }
     }
+*/
 
-/*
-    static final int D = 0, S = 1, L = 2, R = 3, MAX = 10000;
+
+    static final int MAX = 10000, D=0,S=1,L=2,R=3;
+    static final String[] ORDERS = {"D", "S", "L", "R"};
 
     static int a, b;
     static String[] str;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -79,6 +83,7 @@ public class 백준_9019_DSLR {
             b = Integer.parseInt(st.nextToken());
 
             str = new String[MAX];
+            visited = new boolean[MAX];
 
             bfs();
 
@@ -91,6 +96,7 @@ public class 백준_9019_DSLR {
         Queue<Integer> q = new LinkedList<>();
 
         q.offer(a);
+        visited[a] = true;
         str[a] = "";
 
         while (!q.isEmpty()) {
@@ -99,11 +105,12 @@ public class 백준_9019_DSLR {
             if (current == b) return;
 
             int[] tmp = dslr(current);
-            for (int i = 0; i < 4; i++) {
-                int next = tmp[i];
-                if(!isOOB(next) && str[next]==null) {
-                    q.offer(next);
-                    str[next] = str[current] + order(i);
+            for(int i=0;i<4;i++){
+                int x = tmp[i];
+                if (!isOOB(x) && !visited[x]) {
+                    q.offer(x);
+                    str[x] = str[current] + ORDERS[i];
+                    visited[x] = true;
                 }
             }
         }
@@ -116,32 +123,17 @@ public class 백준_9019_DSLR {
         d = (d >= MAX) ? d % MAX : d;
         result[D] = d;
 
-        int s = x - 1;
-        s = (s == 0) ? 9999 : s;
+        int s = (x == 0) ? 9999 : x-1;
         result[S] = s;
 
-        String str = String.format("%04d", x);
-        String x1 = str.substring(0,1);
-        String x2 = str.substring(1,2);
-        String x3 = str.substring(2,3);
-        String x4 = str.substring(3,4);
+        result[L] = (x % 1000) * 10 + x / 1000; // 1234 -> 2341 : 1234를 1000으로 나눈 나머지(234)에 10을 곱함=2340, 1234를 1000으로 나누면 1, 2340+1=2341
 
-        result[L] = Integer.parseInt(x2 + x3 + x4 + x1);
-        result[R] = Integer.parseInt(x4 + x1 + x2 + x3);
+        result[R] = (x % 10) * 1000 + x / 10; // 1234 -> 4123 : 1234를 10으로 나눈 나머지에 1000 곱합 = 4000, 1234를 10으로 나누면 123, 4000+123=4123
 
         return result;
     }
 
-    static String order(int idx) {
-        if (idx == D) return "D";
-        if (idx == S) return "S";
-        if (idx == L) return "L";
-        return "R";
+    static boolean isOOB(int x) {
+        return x < 0 || x >= MAX;
     }
-
-    static boolean isOOB(int x){
-        return x<0 || x>=MAX;
-    }
-
- */
 }
