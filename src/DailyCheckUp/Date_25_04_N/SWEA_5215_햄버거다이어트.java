@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class SWEA_5215_햄버거다이어트 {
-    static int resourceNum, limitKcal, maxScore = -1;
+    static int resourceNum, limitKcal;
+    static long maxScore = -1;
     static int[] score, kcal;
 
     public static void main(String[] args) throws IOException {
@@ -27,7 +28,8 @@ public class SWEA_5215_햄버거다이어트 {
                 kcal[i] = Integer.parseInt(st.nextToken());
             }
 
-            dfs(0, 0, 0); // DFS 탐색 시작
+//            dfs(0, 0, 0); // DFS 탐색 시작
+            maxScore = solutionDp();
 
             sb.append("#").append(t).append(" ").append(maxScore).append("\n");
         }
@@ -49,4 +51,20 @@ public class SWEA_5215_햄버거다이어트 {
         // 지금 재료(idx) 를 포함하지 않고, 다음 재료로 넘어갈 때
         dfs(idx + 1, totScore, totKcal);
     }
+
+    static long solutionDp(){
+        long[] dp = new long[limitKcal+1];
+
+        for (int i = 0; i < resourceNum; i++) {
+            int currScore = score[i];
+            int currKcal = kcal[i];
+
+            for (int j = limitKcal; j >= currKcal; j--) {
+                dp[j] = Math.max(dp[j], dp[j - currKcal] + currScore);  // 최댓값 갱신
+            }
+        }
+
+        return dp[limitKcal];
+    }
+
 }
