@@ -25,34 +25,6 @@ public class SWEA_3304_최장공통부분수열 {
                 }
             }
 
-//            for(int i=1;i<=ss.length();i++){
-//                for(int j=1; j<=ls.length(); j++){
-//                    System.out.print(dp[i][j]+" ");
-//                }
-//                System.out.println();
-//            }
-//            System.out.println();
-
-
-//            int res = 0, startIdx = 0;
-//            String s = "";
-//            for (int i = 0; i < ss.length(); i++) {
-//                char ssValue = ss.charAt(i);
-////                System.out.println("i = " + i);
-//                for (int j = startIdx; j < ls.length(); j++) {
-//                    char lsValue = ls.charAt(j);
-//                    if (ssValue == lsValue) {
-//                        res++;
-//                        startIdx = j+1;
-//                        s+=lsValue;
-////                        System.out.print("j = " + j);
-////                        System.out.println(" -> visited = " + Arrays.toString(visited));
-//                        break;
-//                    }
-//                }
-//            }
-//            System.out.println("s = " + s);
-
             // 역추적: 경로 추적
             int i = ss.length();
             int j = ls.length();
@@ -77,3 +49,22 @@ public class SWEA_3304_최장공통부분수열 {
         System.out.print(sb);
     }
 }
+
+/* LIS( Longest Increasing Subsequence ) 코드
+public static void main(String[] args) {
+        int[] arr = {10, 20, 10, 30, 20, 50};
+        List<Integer> lis = new ArrayList<>();
+
+        for (int num : arr) {
+            int idx = Collections.binarySearch(lis, num);
+
+            // 값이 없으면 삽입 위치 반환 -> 음수로 나옴
+            if (idx < 0) idx = -idx - 1;
+
+            if (idx == lis.size()) lis.add(num); // 제일 큰 값이면 뒤에 붙임
+            else lis.set(idx, num);              // 아니면 교체
+        }
+
+        System.out.println("LIS 길이: " + lis.size());
+    }
+*/
