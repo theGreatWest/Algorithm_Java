@@ -1,4 +1,4 @@
-package DailyCheckUp.Date_25_04_N.D24.모의고사;
+package DailyCheckUp.Date_25_04_N.D24;
 
 import java.util.*;
 import java.io.*;
