@@ -7,13 +7,21 @@ public class SWEA_1873_상호의배틀필드 {
     static final int[] DX = {-1, 1, 0, 0}; // U, D, L, R
     static final int[] DY = {0, 0, -1, 1};
 
-    static final Map<Character, Integer> DIR_MAP = Map.of(
-            '^', 0, 'v', 1, '<', 2, '>', 3
-    );
+    static final Map<Character, Integer> DIR_MAP = new HashMap<>();
+    static {
+        DIR_MAP.put('^', 0);
+        DIR_MAP.put('v', 1);
+        DIR_MAP.put('<', 2);
+        DIR_MAP.put('>', 3);
+    }
 
-    static final Map<Character, Character> CMD_TO_DIR = Map.of(
-            'U', '^', 'D', 'v', 'L', '<', 'R', '>'
-    );
+    static final Map<Character, Character> CMD_TO_DIR = new HashMap<>();
+    static {
+        CMD_TO_DIR.put('U', '^');
+        CMD_TO_DIR.put('D', 'v');
+        CMD_TO_DIR.put('L', '<');
+        CMD_TO_DIR.put('R', '>');
+    }
 
     static int H, W, x, y;
     static char[][] map;
