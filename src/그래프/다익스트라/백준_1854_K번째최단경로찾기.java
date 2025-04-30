@@ -48,7 +48,7 @@ public class 백준_1854_K번째최단경로찾기 {
 // k 번째 경로 출력
         StringBuilder sb = new StringBuilder();
         for(int i=1;i<=citiesNum;i++){
-            sb.append((pqs[i].size()==k) ? pqs[i].peek() : -1).append("\n");
+            sb.append((pqs[i].size()==k) ? String.valueOf(pqs[i].peek()) : "-1").append("\n");
         }
         System.out.print(sb);
     }
