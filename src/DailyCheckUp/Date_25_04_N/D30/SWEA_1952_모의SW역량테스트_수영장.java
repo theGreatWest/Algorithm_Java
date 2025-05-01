@@ -22,10 +22,10 @@ public class SWEA_1952_모의SW역량테스트_수영장 {
                 plan[i] = Integer.parseInt(st.nextToken());
             }
 
-            minFee = Long.MAX_VALUE;
+            minFee = fee[3];
             dfs(1, 0);
 
-            sb.append("#").append(t).append(" ").append(Math.min(minFee, fee[3])).append("\n");
+            sb.append("#").append(t).append(" ").append(minFee).append("\n");
         }
 
         System.out.print(sb);
@@ -40,22 +40,29 @@ public class SWEA_1952_모의SW역량테스트_수영장 {
         }
 
         int nextMonth = month + 1;
-        boolean isNextAvailable = nextMonth <= 12 && plan[nextMonth] != 0;
+        if(plan[month]>0) {
+            dfs(nextMonth, totalFee + plan[month] * fee[0]); // 1일권
+            dfs(nextMonth, totalFee + fee[1]); // 1개월권
+            dfs(month+3, totalFee + fee[2]);
+        }else dfs(nextMonth, totalFee);
 
-        int nextNextMonth = nextMonth + 1;
-        boolean isNextNextAvailable = nextNextMonth <= 12 && plan[nextNextMonth] != 0;
-
-        if (plan[month] != 0) {
-            dfs(nextMonth, totalFee + (fee[0] * plan[month])); // 1일권 선택
-            dfs(nextMonth, totalFee + fee[1]); // 1개월권 선택
-
-            if (isNextAvailable && isNextNextAvailable)
-                dfs(nextNextMonth + 1, totalFee + fee[2]); // 앞으로 3개월동안 연속해서 이용한다면, 3개월권도 선택 가능
-        } else {
-            dfs(nextMonth, totalFee); // 1일권, 1개월권, 3개월권 선택 X
-
-            if (isNextNextAvailable)
-                dfs(nextNextMonth + 1, totalFee + fee[2]); // 해당 달에 값이 없지만, 이후 이틀 후 수영장을 이용한다면 선택
-        }
+//        int nextMonth = month + 1;
+//        boolean isNextAvailable = nextMonth <= 12 && plan[nextMonth] != 0;
+//
+//        int nextNextMonth = nextMonth + 1;
+//        boolean isNextNextAvailable = nextNextMonth <= 12 && plan[nextNextMonth] != 0;
+//
+//        if (plan[month] != 0) {
+//            dfs(nextMonth, totalFee + (fee[0] * plan[month])); // 1일권 선택
+//            dfs(nextMonth, totalFee + fee[1]); // 1개월권 선택
+//
+//            if (isNextAvailable && isNextNextAvailable)
+//                dfs(nextNextMonth + 1, totalFee + fee[2]); // 앞으로 3개월동안 연속해서 이용한다면, 3개월권도 선택 가능
+//        } else {
+//            dfs(nextMonth, totalFee); // 1일권, 1개월권, 3개월권 선택 X
+//
+//            if (isNextNextAvailable)
+//                dfs(nextNextMonth + 1, totalFee + fee[2]); // 해당 달에 값이 없지만, 이후 이틀 후 수영장을 이용한다면 선택
+//        }
     }
 }
