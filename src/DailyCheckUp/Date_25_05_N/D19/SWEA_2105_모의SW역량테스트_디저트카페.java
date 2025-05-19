@@ -9,7 +9,8 @@ public class SWEA_2105_모의SW역량테스트_디저트카페 {
 
     static int N, max, x, y;
     static int[][] cafes;
-    static Set<Integer> selected;
+    //    static Stack<Integer> selected;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -24,14 +25,19 @@ public class SWEA_2105_모의SW역량테스트_디저트카페 {
             }
 
             max = -1;
-            selected = new HashSet<>();
+//            selected = new Stack<>();
+            visited = new boolean[101];
             for (int i = 1; i < N - 1; i++) {
                 for (int j = 0; j < N - 1; j++) {
                     x = i;
                     y = j;
-                    selected.add(cafes[x][y]);
-                    dfs(i, j, 0);
-                    selected.remove(cafes[x][y]);
+//                    selected.push(cafes[x][y]);
+                    // 경로 상에 겹치는 숫자가 없어야 하는 경우, 아래와 같이 숫자를 index로 하는 boolean 일차 배열을 만들어 체크해 준다.
+                    visited[cafes[x][y]] = true;
+//                    dfs(i, j, 0);
+                    dfs(i, j, 0, 1);
+                    visited[cafes[x][y]] = false;
+//                    selected.pop();
                 }
             }
 
@@ -41,28 +47,51 @@ public class SWEA_2105_모의SW역량테스트_디저트카페 {
         System.out.print(sb);
     }
 
-    static void dfs(int i, int j, int d) {
+    static void dfs(int i, int j, int d, int cnt) {
         for (int nd : new int[]{d, d + 1}) {
             if (nd > 3) return;
 
             int ni = i + di[nd];
             int nj = j + dj[nd];
 
-            if(ni==x && nj==y) {
-                max = Math.max(max, selected.size());
+            if (ni == x && nj == y) {
+                if (cnt >= 4) max = Math.max(max, cnt);
                 return;
             }
 
             if (isValidPos(ni, nj)) {
                 int value = cafes[ni][nj];
-                if(!selected.contains(value)){
-                    selected.add(value);
-                    dfs(ni, nj, nd);
-                    selected.remove(value);
+                if (!visited[value]) {
+                    visited[value] = true;
+                    dfs(ni, nj, nd, cnt + 1);
+                    visited[value] = false;
                 }
             }
         }
     }
+
+//    static void dfs(int i, int j, int d) {
+//        for (int nd : new int[]{d, d + 1}) {
+//            if (nd > 3) return;
+//
+//            int ni = i + di[nd];
+//            int nj = j + dj[nd];
+//
+//            if (ni == x && nj == y) {
+//                max = Math.max(max, selected.size());
+//                return;
+//            }
+//
+//            if (isValidPos(ni, nj)) {
+//                int value = cafes[ni][nj];
+//                if (!selected.contains(value)) {
+//                    selected.push(value);
+//                    dfs(ni, nj, nd);
+//                    selected.pop();
+//                }
+//            }
+//        }
+//    }
 
     static boolean isValidPos(int i, int j) {
         return i >= 0 && i < N && j >= 0 && j < N;
