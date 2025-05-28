@@ -35,7 +35,6 @@ public class SWEA_2383_모의SW역량테스트_점심식사시간 {
             useStairNum = new int[person.size()];
             dfs(0);
 
-
             sb.append("#").append(t).append(" ").append(++res).append("\n");
         }
 
@@ -60,100 +59,38 @@ public class SWEA_2383_모의SW역량테스트_점심식사시간 {
     }
 
     static void lunch() {
-        PriorityQueue<Set> pq = new PriorityQueue<>();
-        for(int pi=0;pi<useStairNum.length;pi++){
-            pq.offer(new Set(pi, useStairNum[pi]));
+        List<Integer> stair0 = new ArrayList<>();
+        List<Integer> stair1 = new ArrayList<>();
+
+        for (int i = 0; i < person.size(); i++) {
+            int[] p = person.get(i);
+            int[] s = stair.get(useStairNum[i]);
+            int dist = Math.abs(p[0] - s[0]) + Math.abs(p[1] - s[1]);
+            if (useStairNum[i] == 0) stair0.add(dist);
+            else stair1.add(dist);
         }
 
-        Queue<Set> s0 = new LinkedList<>();
-        Queue<Set> s0wait = new LinkedList<>();
+        int len0 = stair.get(0)[2];
+        int len1 = stair.get(1)[2];
 
-        Queue<Set> s1 = new LinkedList<>();
-        Queue<Set> s1wait = new LinkedList<>();
+        Collections.sort(stair0);
+        Collections.sort(stair1);
 
-        int time = 0;
-        for(int min = 1; min <= 100; min++){
-            if(pq.isEmpty()
-                    && s0.isEmpty() && s0wait.isEmpty()
-                    && s1.isEmpty() && s1wait.isEmpty()) {
-                break;
-            }
-
-            // 해당 시간에 이용 시간이 끝나는 사람이 있는 경우
-            while(!s0.isEmpty()){
-                Set curr = s0.peek();
-                if(curr.endTime==min) {
-                    time = Math.max(time, min);
-                    s0.poll();
-                }else break;
-            }
-            while(s0.size()<stair.get(0)[2] && !s0wait.isEmpty()){
-                Set curr = s0wait.poll();
-                s0.offer(new Set(curr.pNum, curr.sNum, min));
-            }
-            while(!s1.isEmpty()){
-                Set curr = s1.peek();
-                if(curr.endTime==min) {
-                    time = Math.max(time, min);
-                    s1.poll();
-                }else break;
-            }
-            while(s1.size()<stair.get(1)[2] && !s1wait.isEmpty()){
-                Set curr = s1wait.poll();
-                s1.offer(new Set(curr.pNum, curr.sNum, min));
-            }
-
-            // 해당 시간에 계단에 도착하는 사람이 있을 경우
-            while(!pq.isEmpty()){
-                Set curr = pq.peek();
-                if(curr.arrivedTime + 1 == min){
-                    curr = pq.poll();
-                    if(curr.sNum==0){
-                        if(s0.size() < stair.get(0)[2]) s0.offer(curr);
-                        else s0wait.offer(curr);
-                    }else{
-                        if(s1.size() < stair.get(1)[2]) s1.offer(curr);
-                        else s1wait.offer(curr);
-                    }
-                }else break;
+        for (int i = 3; i < stair0.size(); i++) {
+            if (stair0.get(i - 3) + len0 > stair0.get(i)) {
+                stair0.set(i, stair0.get(i - 3) + len0);
             }
         }
 
-        res = Math.min(res, time);
-    }
-
-    static class Set implements Comparable<Set> {
-        int pNum;
-        int sNum;
-        int arrivedTime;
-        int endTime;
-
-        public Set(int pNum, int sNum) {
-            this.pNum = pNum;
-            this.sNum = sNum;
-
-            this.arrivedTime = getArrivedTime();
-            this.endTime = this.arrivedTime + stair.get(sNum)[2];
+        for (int i = 3; i < stair1.size(); i++) {
+            if (stair1.get(i - 3) + len1 > stair1.get(i)) {
+                stair1.set(i, stair1.get(i - 3) + len1);
+            }
         }
 
-        public Set(int pNum, int sNum, int startMin){
-            this.pNum = pNum;
-            this.sNum = sNum;
+        int end0 = stair0.isEmpty() ? 0 : stair0.get(stair0.size() - 1) + len0;
+        int end1 = stair1.isEmpty() ? 0 : stair1.get(stair1.size() - 1) + len1;
 
-            this.arrivedTime = startMin;
-            this.endTime = this.arrivedTime + stair.get(sNum)[2];
-        }
-
-        int getArrivedTime() {
-            int[] p = person.get(pNum);
-            int[] s = stair.get(sNum);
-            return Math.abs(p[0] - s[0]) + Math.abs(p[1] - s[1]);
-        }
-
-        @Override
-        public int compareTo(Set o) { // 도착 시간이 빠른 순서
-            if (this.arrivedTime == o.arrivedTime) return stair.get(this.sNum)[2] - stair.get(o.sNum)[2];
-            return this.arrivedTime - o.arrivedTime;
-        }
+        res = Math.min(res, Math.max(end0, end1));
     }
 }
