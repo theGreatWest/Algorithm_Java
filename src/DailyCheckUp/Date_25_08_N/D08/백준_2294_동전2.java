@@ -1,4 +1,4 @@
-package DailyCheckUp.Date_25_08_N;
+package DailyCheckUp.Date_25_08_N.D08;
 
 import java.util.*;
 import java.io.*;
